@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'examples/counter/cubit/counter_cubit.dart';
+import 'examples/todo/cubits/get_all_todos/get_all_todos_cubit.dart';
+import 'examples/todo/models/todo_model.dart';
+import 'examples/todo/repository/repository.dart';
 import 'examples/todo/view/todo_view.dart';
+import 'objectbox.dart';
+import 'objectbox.g.dart';
 
-void main() {
+late Box<TodoModel> todoBox;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final objectbox = await ObjectBox.create();
+  todoBox = objectbox.store.box<TodoModel>();
+
   runApp(const MainApp());
 }
 
@@ -13,16 +23,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider(create: (context) => CounterCubit()),
-
-        //BlocProvider(create: (context) => SampleBloc(TextRepository())..add(const FetchData(1))),
-        // BlocProvider(create: (context) => PostCubit(TextRepository())),
+        RepositoryProvider<TodoRepository>(create: (context) => TodoRepositoryImpl(todoBox)),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: TodoView(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => GetAllTodosCubit(context.read<TodoRepository>())),
+        ],
+        child: const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: TodoView(),
+        ),
       ),
     );
   }

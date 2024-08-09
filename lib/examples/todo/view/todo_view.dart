@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import '../_widgets/dialog_field.dart';
 
 class TodoView extends StatelessWidget {
-  TodoView({super.key});
-
-  final TextEditingController controller = TextEditingController();
+  const TodoView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +11,7 @@ class TodoView extends StatelessWidget {
       backgroundColor: const Color(0xFFD9D9D9),
       body: Column(
         children: [
-          Container(
+          ColoredBox(
             color: const Color(0xFF50C2C9),
             child: Image.asset('assets/images/Todo_image.png'),
           ),
@@ -60,11 +58,7 @@ class TodoView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF50C2C9),
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) => DialogField(
-                    controller: controller,
-                  ));
+          showDialog(context: context, builder: (context) => const DialogField());
         },
         child: const Icon(
           Icons.add,

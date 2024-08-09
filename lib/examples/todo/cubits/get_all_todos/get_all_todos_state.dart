@@ -22,11 +22,11 @@ final class GetAllTodosLoading extends GetAllTodosState {
 }
 
 final class GetAllTodosSuccess extends GetAllTodosState {
-  const GetAllTodosSuccess();
-  //final List<TodoModel> data;
+  const GetAllTodosSuccess(this.data);
+  final List<TodoModel> data;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [data];
 }
 
 final class GetAllTodosFailure extends GetAllTodosState {

@@ -3,10 +3,27 @@ import 'package:flutter/material.dart';
 import 'app_button.dart';
 import 'text_box.dart';
 
-class DialogField extends StatelessWidget {
-  const DialogField({required this.controller, super.key});
+class DialogField extends StatefulWidget {
+  const DialogField({super.key});
 
-  final TextEditingController controller;
+  @override
+  State<DialogField> createState() => _DialogFieldState();
+}
+
+class _DialogFieldState extends State<DialogField> {
+  late final TextEditingController controller;
+
+  @override
+  void initState() {
+    controller = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +35,7 @@ class DialogField extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            TextBox(
-              controller: controller,
-            ),
+            TextBox(controller: controller),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
