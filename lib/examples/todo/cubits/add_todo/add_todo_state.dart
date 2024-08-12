@@ -22,8 +22,8 @@ final class AddTodoLoading extends AddTodoState {
 }
 
 final class AddTodoSuccess extends AddTodoState {
-  const AddTodoSuccess();
-  //final List<TodoModel> data;
+  const AddTodoSuccess(this.data);
+  final void data;
 
   @override
   List<Object> get props => [];

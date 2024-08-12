@@ -1,0 +1,18 @@
+offline çalışacak
+
+
+
+getalltodos
+remove todo
+add todo
+
+
+https://pub.dev/packages/objectbox
+
+
+{
+    "id": int,
+    "created_at": string,
+    "is_done: boolean,
+    "content": string
+}
