@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'examples/todo/cubits/add_todo/add_todo_cubit.dart';
 import 'examples/todo/cubits/get_all_todos/get_all_todos_cubit.dart';
+import 'examples/todo/cubits/remove_todo/remove_todo_cubit.dart';
 import 'examples/todo/models/todo_model.dart';
 import 'examples/todo/repository/repository.dart';
 import 'examples/todo/view/todo_view.dart';
@@ -30,12 +31,11 @@ class MainApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => AddTodoCubit(TodoRepositoryImpl(todoBox)),
-          ),
-          BlocProvider(create: (context) => GetAllTodosCubit(context.read<TodoRepository>()..getAllTodos())),
+          BlocProvider(create: (context) => AddTodoCubit(TodoRepositoryImpl(todoBox))),
+          BlocProvider(create: (context) => RemoveTodoCubit(TodoRepositoryImpl(todoBox))),
+          BlocProvider(create: (context) => GetAllTodosCubit(context.read<TodoRepository>())),
         ],
-        child: MaterialApp(
+        child: const MaterialApp(
           debugShowCheckedModeBanner: false,
           home: TodoView(),
         ),

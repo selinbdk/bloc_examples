@@ -10,10 +10,16 @@ class GetAllTodosCubit extends Cubit<GetAllTodosState> {
   GetAllTodosCubit(this.todoRepository) : super(const GetAllTodosInitial());
 
   Future<void> getAllTodos() async {
-    emit(const GetAllTodosLoading());
+    try {
+      if (state is GetAllTodosInitial) {
+        emit(const GetAllTodosLoading());
+      }
 
-    final list = await todoRepository.getAllTodos();
-    emit(GetAllTodosSuccess(list));
+      final list = await todoRepository.getAllTodos();
+      emit(GetAllTodosSuccess(list));
+    } catch (e) {
+      emit(GetAllTodosFailure(message: e.toString()));
+    }
   }
 
   final TodoRepository todoRepository;

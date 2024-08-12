@@ -23,8 +23,8 @@ final class RemoveTodoLoading extends RemoveTodoState {
 }
 
 final class RemoveTodoSuccess extends RemoveTodoState {
-  const RemoveTodoSuccess(this.data);
-  final void data;
+  const RemoveTodoSuccess();
+  
 
   @override
   List<Object> get props => [];

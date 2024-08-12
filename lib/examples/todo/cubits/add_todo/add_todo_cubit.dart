@@ -13,8 +13,8 @@ class AddTodoCubit extends Cubit<AddTodoState> {
     emit(const AddTodoLoading());
 
     try {
-      final element = await todoRepository.saveTodo(model);
-      emit(AddTodoSuccess(element));
+      await todoRepository.saveTodo(model);
+      emit(const AddTodoSuccess());
     } catch (_) {
       emit(AddTodoFailure(message: _.toString()));
     }

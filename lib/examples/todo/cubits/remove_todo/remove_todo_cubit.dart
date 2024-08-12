@@ -10,11 +10,16 @@ class RemoveTodoCubit extends Cubit<RemoveTodoState> {
     this.todoRepository,
   ) : super(const RemoveTodoInitial());
 
-  Future<void> removeTodo(int id) async {
+  Future<void> removeTodo(int? id) async {
     emit(const RemoveTodoLoading());
     try {
-      final element = await todoRepository.removeTodo(id);
-      emit(RemoveTodoSuccess(element));
+      if (id == null) {
+        print('ID NULL GELDI');
+        return emit(const RemoveTodoFailure(message: 'Something went wrong'));
+      }
+
+      await todoRepository.removeTodo(id);
+      emit(const RemoveTodoSuccess());
     } catch (_) {
       emit(RemoveTodoFailure(message: _.toString()));
     }
