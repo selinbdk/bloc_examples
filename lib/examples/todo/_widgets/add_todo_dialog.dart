@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../components/snack_bar_extension.dart';
 import '../cubits/add_todo/add_todo_cubit.dart';
 import '../cubits/get_all_todos/get_all_todos_cubit.dart';
 import '../models/todo_model.dart';
@@ -25,11 +28,12 @@ class AddTodoDialog extends StatelessWidget {
             barrierDismissible: false,
           );
         } else if (state is AddTodoSuccess) {
-          Navigator.pop(context);
-          Navigator.pop(context);
           await context.read<GetAllTodosCubit>().getAllTodos();
+          Navigator.pop(context);
+          Navigator.pop(context);
         } else if (state is AddTodoFailure) {
-          //todo snackbar dialog bottomsheet sayfa geçişi
+          context.showErrorMessage(message: 'Something went wrong!');
+          Navigator.pop(context);
         }
       },
       builder: (context, state) {

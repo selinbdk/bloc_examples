@@ -129,12 +129,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 8);
           final contentParam = const fb.StringReader(asciiOptimization: true)
               .vTableGetNullable(buffer, rootOffset, 10);
+          final idParam =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
           final object = TodoModel(
               createdAt: createdAtParam,
               isDone: isDoneParam,
-              content: contentParam)
-            ..id =
-                const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
+              content: contentParam,
+              id: idParam);
 
           return object;
         })
